@@ -10,3 +10,18 @@ const Workout = require("../models/workout.js");
 // For this 7 day review, we are looking for the total combined WEIGHT
 
 // For this 7 day review, we are looking for the total combined DURATION
+
+router.get('/api/workouts', (req, res) => {
+     Workout.find()
+     .then(data => {
+         res.status(200).json(data);
+     }
+
+     )
+     .catch (err => { 
+        res.status(500).json(err);
+        console.log(err)
+     })
+})
+
+module.exports = router
