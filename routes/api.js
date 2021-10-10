@@ -1,18 +1,8 @@
 const router = require("express").Router();
 const Workout = require("../models/workout.js");
 
-// User needs to be able to ADD excercises to the most recent workout plan
-
-// User needs to be able to add NEW exercises to the workout plan
-
-// REview most recent 7 days of excercise
-
-// For this 7 day review, we are looking for the total combined WEIGHT
-
-// For this 7 day review, we are looking for the total combined DURATION
-
 router.get('/api/workouts', (req, res) => {
-    // summons all documents
+    // summons all excercises
      Workout.aggregate([
         {
             $addFields: {
@@ -38,7 +28,7 @@ router.get('/api/workouts', (req, res) => {
 })
 
 router.get('/api/workouts/range', (reg, res) => {
-            // finds range for the last 7 days by aggregating data for total duration.
+            // finds range for the last 7 days by aggregating data for the stats page.
     Workout.aggregate([
             {
              $addFields: {
@@ -64,7 +54,7 @@ router.get('/api/workouts/range', (reg, res) => {
 })
 
   router.post('/api/workouts', ( req ,res) => {
-    // adding new excercise for the day
+    // adding new excercise for the day (this runs once 'New Workout' has been activated)
     Workout.create({})
     .then((data) => {
         console.log(data)
@@ -77,10 +67,13 @@ router.get('/api/workouts/range', (reg, res) => {
 })
 
 router.put('/api/workouts/:id', (req, res) => {
+    // updates excercises for the day
     Workout.findOneAndUpdate(
       { 
           _id: req.params.id
          },
+         // We are not creating new documents but rather adding excercises to an existing post.
+         // This is why we use $push and not $set.
       { $push: 
         { 
             exercises: req.body
