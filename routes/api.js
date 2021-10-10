@@ -63,9 +63,9 @@ router.get('/api/workouts/range', (reg, res) => {
         })
 })
 
-router.post('/api/workouts', ({body},res) => {
+  router.post('/api/workouts', ( req ,res) => {
     // adding new excercise for the day
-    Workout.create(body)
+    Workout.create({})
     .then((data) => {
         console.log(data)
         res.status(200).json(data)
@@ -73,9 +73,31 @@ router.post('/api/workouts', ({body},res) => {
     .catch ((err) => {
         console.log(err)
         res.status(500).json(err);
-    })})
-
-router.put('api/workouts/:id', (req,res) => {
-    //updating excercises for day
+    })
 })
+
+router.put('/api/workouts/:id', (req, res) => {
+    Workout.findOneAndUpdate(
+      { 
+          _id: req.params.id
+         },
+      { $push: 
+        { 
+            exercises: req.body
+         }
+     },
+      { 
+          new: true
+         }
+    )
+    .then((data) => {
+        console.log(data)
+        res.status(200).json(data)
+    })
+    .catch ((err) => {
+        console.log(err)
+        res.status(500).json(err);
+    })
+  });
+
 module.exports = router
