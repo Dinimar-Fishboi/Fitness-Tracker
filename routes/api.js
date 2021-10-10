@@ -24,4 +24,31 @@ router.get('/api/workouts', (req, res) => {
      })
 })
 
+router.get('/api/workouts/range', (reg, res) => {
+            // need to find range for the last 7 days 
+    Workout.aggregate([
+            {
+             $addFields: {
+                 totalDuration: {
+                     $sum: "$excercises.duration"
+                 },
+                 totalWeight: {
+                    $sum: "$excercises.weight"
+                 }
+             }   
+            }
+        ])
+        .sort({_id: -1})
+        .limit(7)
+        .then((data) => {
+            console.log(data)
+            res.json(data)
+        })
+        .catch ((err) => {
+            res.json(err);
+        })
+})
+
+router.post('/api/workouts/')
+
 module.exports = router
