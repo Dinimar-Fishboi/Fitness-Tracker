@@ -63,4 +63,19 @@ router.get('/api/workouts/range', (reg, res) => {
         })
 })
 
+router.post('/api/workouts', ({body},res) => {
+    // adding new excercise for the day
+    Workout.create(body)
+    .then((data) => {
+        console.log(data)
+        res.status(200).json(data)
+    })
+    .catch ((err) => {
+        console.log(err)
+        res.status(500).json(err);
+    })})
+
+router.put('api/workouts/:id', (req,res) => {
+    //updating excercises for day
+})
 module.exports = router
