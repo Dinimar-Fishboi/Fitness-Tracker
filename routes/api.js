@@ -12,28 +12,41 @@ const Workout = require("../models/workout.js");
 // For this 7 day review, we are looking for the total combined DURATION
 
 router.get('/api/workouts', (req, res) => {
-     Workout.find()
+    // summons all documents
+     Workout.aggregate([
+        {
+            $addFields: {
+                totalDuration: {
+                    $sum: "$exercises.duration"
+                },
+                totalWeight: {
+                   $sum: "$exercises.weight"
+                }
+            }   
+           }
+     ])
      .then(data => {
+         console.log(data)
          res.status(200).json(data);
      }
 
      )
      .catch (err => { 
-        res.status(500).json(err);
         console.log(err)
+        res.status(500).json(err);
      })
 })
 
 router.get('/api/workouts/range', (reg, res) => {
-            // need to find range for the last 7 days 
+            // finds range for the last 7 days by aggregating data for total duration.
     Workout.aggregate([
             {
              $addFields: {
                  totalDuration: {
-                     $sum: "$excercises.duration"
+                     $sum: "$exercises.duration"
                  },
                  totalWeight: {
-                    $sum: "$excercises.weight"
+                    $sum: "$exercises.weight"
                  }
              }   
             }
@@ -42,13 +55,12 @@ router.get('/api/workouts/range', (reg, res) => {
         .limit(7)
         .then((data) => {
             console.log(data)
-            res.json(data)
+            res.status(200).json(data)
         })
         .catch ((err) => {
-            res.json(err);
+            console.log(err)
+            res.status(500).json(err);
         })
 })
-
-router.post('/api/workouts/')
 
 module.exports = router
