@@ -18,8 +18,8 @@ Users are initially presented with a page that reviews their most recent workout
 
 ## Table of Contents 
 - [Technologies](#technologies)
-- [Installation](#installation)
 - [Usage](#usage)
+- [Issues](#issues)
 - [Questions](#questions)
 - [License](#license-and-copyright)
 
@@ -33,9 +33,11 @@ Users are initially presented with a page that reviews their most recent workout
 - MongoDB
 - Mongoose
 
-## Installation
+## Issues
 
-The project is live and can be access via the link on this page. You are also welcome to clone this repo.
+The project autocreates new entries unless when 'New Workout' is selected, regardless of what day it is. While this is not a hard error, this does mean that multiple entries over different days will exist.
+
+In addition, the data for the previous 7 entries will be viewable on the Dashboard, however the data is sorted by Descending order and not ascending - which is not ideal for the user. 
 
 ## Usage
 
