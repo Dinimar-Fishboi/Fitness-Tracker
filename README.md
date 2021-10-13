@@ -10,6 +10,12 @@ Users are initially presented with a page that reviews their most recent workout
 
 ## Deployed Link and Screenshots
 
+[Live Site](https://glacial-cove-79388.herokuapp.com/)
+
+<img width="768" alt="Screen Shot 2021-10-13 at 20 42 12" src="https://user-images.githubusercontent.com/83541287/137118773-938adb08-40f1-4d41-846a-56e9d13914f2.png">
+
+<img width="768" alt="Screen Shot 2021-10-13 at 20 42 28" src="https://user-images.githubusercontent.com/83541287/137118808-3fb973e5-e04b-4cc5-8f06-ee819a4c50c9.png">
+
 ## Table of Contents 
 - [Technologies](#technologies)
 - [Installation](#installation)
